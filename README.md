@@ -2,7 +2,7 @@
 
 <img src="store/images/icon-512.png" alt="PaperCard logo" width="96" height="96">
 
-# PaperCard
+# PaperCard-Dong
 
 **Turn tweets, Reddit posts and any web text into beautiful image cards, in one click.**
 
@@ -117,6 +117,6 @@ If PaperCard saves you a screenshot or two:
 
 ## License
 
-[MIT](LICENSE) © Suge ([sugeflow.com](https://sugeflow.com))
+[MIT](LICENSE) © dongyidianai.com
 
 PaperCard is an independent project and is not affiliated with X Corp., Reddit, Inc., Meta, Bluesky, Sina Weibo, Zhihu, Xiaohongshu or Tencent (WeChat). Platform logos are from [Simple Icons](https://simpleicons.org) (CC0) and remain trademarks of their owners.
