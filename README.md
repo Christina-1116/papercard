@@ -107,19 +107,13 @@ Not yet. PaperCard supports the current reddit.com design. Want another site? [O
 
 Bug reports, site requests and pull requests are welcome. Sites change their markup often, so "it broke on X today" issues with a screenshot are especially helpful. See [CONTRIBUTING.md](CONTRIBUTING.md) and the [development notes](docs/DEVELOPMENT.md).
 
-```bash
-git clone https://github.com/sugeflow/papercard.git
-cd papercard
-npm test
-```
+
 
 ## Support the project
 
 If PaperCard saves you a screenshot or two:
 
 - ⭐ **Star this repo**; it's the easiest way to help others find it.
-- 👤 **Follow [@sugeflow](https://github.com/sugeflow)** for more small, useful tools.
-- 🗣️ Share a card you made and mention PaperCard.
 
 ## License
 
