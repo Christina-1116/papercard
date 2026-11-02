@@ -6,7 +6,7 @@
 
 **Turn tweets, Reddit posts and any web text into beautiful image cards, in one click.**
 
-A free, open-source Chrome extension that copies a post from X (Twitter), Reddit, Threads, Instagram, Bluesky, Weibo, Zhihu or Xiaohongshu as a clean, book-style PNG straight to your clipboard. No watermark, no account, nothing uploaded.
+A free, open-source Chrome extension that copies a post from X (Twitter), Reddit, Threads, Instagram, Bluesky, Weibo, Zhihu, Xiaohongshu or a WeChat Official Account article as a clean, book-style PNG straight to your clipboard. No watermark, no account, nothing uploaded.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-d9480f.svg)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-1c1917.svg)](manifest.json)
@@ -28,10 +28,10 @@ It is a cleaner alternative to taking a screenshot of a tweet and cropping it, a
 ## Features
 
 - **One click, already in your clipboard.** Paste with <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> anywhere, or download the PNG.
-- **8 platforms + any website.** X / Twitter, Reddit, Threads, Instagram, Bluesky, Weibo, Zhihu, Xiaohongshu (RED). On any other page, select text and right-click to make a quote card.
+- **9 platforms + any website.** X / Twitter, Reddit, Threads, Instagram, Bluesky, Weibo, Zhihu, Xiaohongshu (RED), WeChat Official Accounts. On any other page, select text and right-click to make a quote card.
 - **Quote a single sentence.** Highlight one line inside a post and get a quote card that still credits the author, date and link.
 - **Whole threads.** Combine an author's X thread into one card.
-- **4 styles × light / dark.** Paper, Minimal, Magazine and Gradient.
+- **8 styles × light / dark.** Paper, Minimal, Magazine and Gradient, plus four softer ones: Blossom, Cloud, Memo and Matcha.
 - **Sizes for every feed.** Auto, 1:1, 4:5 (Instagram, Xiaohongshu) and 9:16 (Stories).
 - **Your footer, your call.** Date, likes, reposts, replies, views, bookmarks, upvotes, comments, an optional QR code back to the post, and a small platform logo next to the author.
 - **Sharp everywhere.** Cards export at 2× (1440 px wide).
@@ -58,6 +58,7 @@ It is a cleaner alternative to taking a screenshot of a tweet and cropping it, a
 | Weibo 微博 | | ✅ | Author, text, images, reposts / comments / likes |
 | Zhihu 知乎 | | ✅ | Question title, answer, upvotes, comments |
 | Xiaohongshu 小红书 | | ✅ | Author, title, note text, images, likes / collects / comments |
+| WeChat 微信公众号 | | ✅ | Account, writer, title, cover, opening paragraphs, date (image posts: pictures) |
 | Any other website | | Select text → right-click | Selected text, site name, date and link |
 
 ## Install
@@ -124,4 +125,4 @@ If PaperCard saves you a screenshot or two:
 
 [MIT](LICENSE) © Suge ([sugeflow.com](https://sugeflow.com))
 
-PaperCard is an independent project and is not affiliated with X Corp., Reddit, Inc., Meta, Bluesky, Sina Weibo, Zhihu or Xiaohongshu. Platform logos are from [Simple Icons](https://simpleicons.org) (CC0) and remain trademarks of their owners.
+PaperCard is an independent project and is not affiliated with X Corp., Reddit, Inc., Meta, Bluesky, Sina Weibo, Zhihu, Xiaohongshu or Tencent (WeChat). Platform logos are from [Simple Icons](https://simpleicons.org) (CC0) and remain trademarks of their owners.

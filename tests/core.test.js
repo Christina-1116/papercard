@@ -184,3 +184,15 @@ test("normalizeTweetData asks X for the 400px avatar", () => {
   assert.equal(data.quote.avatarUrl, "https://pbs.twimg.com/profile_images/2/def_400x400.png");
   assert.equal(core.preferLargeAvatar("https://example.com/a_normal.jpg"), "https://example.com/a_normal.jpg");
 });
+
+test("soft templates are accepted by normalizeShareSettings", () => {
+  for (const template of ["blossom", "cloud", "memo", "matcha"]) {
+    assert.equal(core.normalizeShareSettings({ template }).template, template);
+  }
+});
+
+test("labels with spaces or CJK are not turned into @handles", () => {
+  const data = core.normalizeTweetData({ authorName: "云端小屋", authorHandle: "作者 DONG", text: "hi" });
+  assert.equal(data.authorHandle, "作者 DONG");
+  assert.equal(core.normalizeTweetData({ authorName: "a", authorHandle: "paper_reader", text: "hi" }).authorHandle, "@paper_reader");
+});

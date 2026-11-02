@@ -7,7 +7,7 @@
   root.TwitterShareImageCore = factory();
 })(typeof globalThis !== "undefined" ? globalThis : this, function createCore() {
   const DEFAULT_AUTHOR = "X / Twitter";
-  const TEMPLATES = ["paper", "minimal", "magazine", "gradient"];
+  const TEMPLATES = ["paper", "minimal", "magazine", "gradient", "blossom", "cloud", "memo", "matcha"];
   // Output sizes: "auto" fits the content; the rest are fixed width:height
   // ratios for feeds that crop (Instagram/Xiaohongshu 4:5, stories 9:16).
   const RATIOS = ["auto", "1:1", "4:5", "9:16"];
@@ -57,6 +57,8 @@
     const handle = String(value || "").trim();
     if (!handle) return "";
     if (/^[ru]\//i.test(handle)) return handle;
+    // Labels such as a Zhihu badge or a WeChat "作者 …" line are not usernames.
+    if (/[\s\u3000-\u9fff\uff00-\uffef]/.test(handle)) return handle;
     return handle.startsWith("@") ? handle : `@${handle}`;
   }
 

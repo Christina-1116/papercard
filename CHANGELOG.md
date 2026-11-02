@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **WeChat Official Account articles** (mp.weixin.qq.com) are supported: right-click an article for a card with the account, title, cover and an excerpt of the opening paragraphs, or highlight a passage for a quote card credited to the account. Image posts keep their pictures.
+- Four softer styles: **Blossom** (pale pink with two sparkles), **Cloud** (sky blue with a small cloud), **Memo** (cream paper with washi tape) and **Matcha** (sage with a stitched edge), each in light and dark.
+- Fix: cards with a title (Reddit, Zhihu, Xiaohongshu) failed to render because of a variable used before it was declared.
+- Handles that are labels (a Zhihu badge, a WeChat writer) no longer get an "@" in front.
 - Several images share one box like on X (side by side, one tall plus two, 2×2) instead of stacking full width; longer galleries continue in rows of two.
 - Video covers in the main post get a play badge.
 - X avatars use the 400px image, so they're no longer blurry.

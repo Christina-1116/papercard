@@ -43,7 +43,9 @@
     "https://*.fbcdn.net/*",
     "https://*.sinaimg.cn/*",
     "https://*.zhimg.com/*",
-    "https://*.xhscdn.com/*"
+    "https://*.xhscdn.com/*",
+    "https://*.qpic.cn/*",
+    "https://*.qlogo.cn/*"
   ],
   "background": {
     "service_worker": "src/background.js"
@@ -65,7 +67,8 @@
         "https://www.weibo.com/*",
         "https://www.zhihu.com/*",
         "https://zhuanlan.zhihu.com/*",
-        "https://www.xiaohongshu.com/*"
+        "https://www.xiaohongshu.com/*",
+        "https://mp.weixin.qq.com/*"
       ],
       "js": [
         "src/core.js",

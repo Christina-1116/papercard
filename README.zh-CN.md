@@ -6,7 +6,7 @@
 
 **一键把推文、Reddit 帖子和任意网页文字，变成好看的图片卡片。**
 
-免费开源的 Chrome 扩展：把 X（推特）、Reddit、Threads、Instagram、Bluesky、微博、知乎、小红书上的帖子，生成书页风格的 PNG 卡片，直接复制到剪贴板。无水印、无需注册，所有内容都在本地生成。
+免费开源的 Chrome 扩展：把 X（推特）、Reddit、Threads、Instagram、Bluesky、微博、知乎、小红书上的帖子和微信公众号文章，生成书页风格的 PNG 卡片，直接复制到剪贴板。无水印、无需注册，所有内容都在本地生成。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-d9480f.svg)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-1c1917.svg)](manifest.json)
@@ -28,10 +28,10 @@ PaperCard 是一个把社交媒体帖子转成分享图的 Chrome 扩展。它�
 ## 功能亮点
 
 - **点一下就在剪贴板里**：<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> 直接粘贴，也可以下载 PNG。
-- **8 个平台 + 任意网页**：X / 推特、Reddit、Threads、Instagram、Bluesky、微博、知乎、小红书；其他网站选中文字右键即可生成金句卡。
+- **9 个平台 + 任意网页**：X / 推特、Reddit、Threads、Instagram、Bluesky、微博、知乎、小红书、微信公众号；其他网站选中文字右键即可生成金句卡。
 - **只摘一句话**：在帖子里划选一句，生成保留作者、日期和链接的金句卡。
 - **整串推文**：把同一作者的推文串合成一张卡片。
-- **4 种风格 × 深浅色**：纸张、极简、杂志、渐变。
+- **8 种风格 × 深浅色**：纸张、极简、杂志、渐变，以及四款更柔和的：樱粉、云朵、便签、抹茶。
 - **适配各平台尺寸**：自适应、1:1、4:5（小红书、Instagram）、9:16（快拍）。
 - **底部信息自己选**：日期、点赞、转发、回复、浏览、收藏、赞同、评论，可选二维码直达原帖，作者旁可显示平台 Logo。
 - **高清导出**：统一 2 倍图（1440 px 宽），手机上看也清晰。
@@ -58,6 +58,7 @@ PaperCard 是一个把社交媒体帖子转成分享图的 Chrome 扩展。它�
 | 微博 | | ✅ | 作者、正文、图片、转发 / 评论 / 点赞 |
 | 知乎 | | ✅ | 问题标题、回答、赞同、评论 |
 | 小红书 | | ✅ | 作者、标题、笔记正文、图片、点赞 / 收藏 / 评论 |
+| 微信公众号 | | ✅ | 公众号、作者、标题、封面、开头几段、发布日期（图片消息为图片） |
 | 其他任意网站 | | 选中文字 → 右键 | 选中的文字、网站名、日期和链接 |
 
 ## 安装
@@ -124,4 +125,4 @@ npm test
 
 [MIT](LICENSE) © Suge（[sugeflow.com](https://sugeflow.com)）
 
-PaperCard 是独立项目，与 X Corp.、Reddit, Inc.、Meta、Bluesky、新浪微博、知乎、小红书均无关联。平台 Logo 来自 [Simple Icons](https://simpleicons.org)（CC0），商标归各自所有者。
+PaperCard 是独立项目，与 X Corp.、Reddit, Inc.、Meta、Bluesky、新浪微博、知乎、小红书、腾讯（微信）均无关联。平台 Logo 来自 [Simple Icons](https://simpleicons.org)（CC0），商标归各自所有者。

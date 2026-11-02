@@ -118,7 +118,7 @@ PaperCard 为独立项目，与 X Corp. 及 Reddit, Inc. 无关联。
 ## Privacy practices tab (review form)
 
 **Single purpose**
-Turn a social post (X/Twitter, Reddit, Threads, Instagram, Bluesky, Weibo, Zhihu, Xiaohongshu) or text the user selects on any web page into a PNG image card, and copy it to the clipboard.
+Turn a social post (X/Twitter, Reddit, Threads, Instagram, Bluesky, Weibo, Zhihu, Xiaohongshu, WeChat Official Account articles) or text the user selects on any web page into a PNG image card, and copy it to the clipboard.
 
 **Permission justifications**
 
@@ -131,7 +131,7 @@ Turn a social post (X/Twitter, Reddit, Threads, Instagram, Bluesky, Weibo, Zhihu
 | `storage` | Saves the user's card preferences (style, theme, size, footer fields, QR code, credit line) with `chrome.storage.sync`. |
 | `declarativeNetRequestWithHostAccess` | Weibo's image CDN (`sinaimg.cn`) only serves images to requests with a weibo.com Referer. One session rule adds that Referer to the extension's own background image requests (tab ID -1). It never touches requests made by web pages. |
 | Host permissions: post sites (x.com, twitter.com, reddit.com) | The content script adds the "Copy as image" item to the site's own Share menu and reads the post the user chose (author, text, images, date, like/reply counts). The social sites listed under Content scripts below are covered by the same content-script matches. |
-| Host permissions: image CDNs (pbs.twimg.com, redd.it, redditmedia.com, redditstatic.com, cdn.bsky.app, cdninstagram.com, fbcdn.net, sinaimg.cn, zhimg.com, xhscdn.com) | Downloads the images and avatars of the post the user chose so they can be drawn into the card. These CDNs don't allow cross-origin reads from the page, so the extension's background worker fetches them. Requests go only to these hosts and only for the post being turned into a card. |
+| Host permissions: image CDNs (pbs.twimg.com, redd.it, redditmedia.com, redditstatic.com, cdn.bsky.app, cdninstagram.com, fbcdn.net, sinaimg.cn, zhimg.com, xhscdn.com, qpic.cn, qlogo.cn) | Downloads the images and avatars of the post the user chose so they can be drawn into the card. These CDNs don't allow cross-origin reads from the page, so the extension's background worker fetches them. Requests go only to these hosts and only for the post being turned into a card. |
 
 **Content scripts** run on x.com, twitter.com, reddit.com, bsky.app, threads.com / threads.net, instagram.com, weibo.com, zhihu.com and xiaohongshu.com. Their only job is to add the menu item and read the post the user acts on. Nothing is sent anywhere.
 

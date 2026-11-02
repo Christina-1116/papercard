@@ -314,5 +314,149 @@
     }
   };
 
-  root.PaperCardPlatforms = [bluesky, threads, instagram, weibo, zhihu, xiaohongshu];
+  // WeChat Official Account articles (mp.weixin.qq.com). An article page is a
+  // single long post, so the card takes the title, the account, the cover and
+  // an excerpt of the opening paragraphs; highlighting a passage instead gives
+  // a quote card credited to the account. Image posts ("图片消息") have no
+  // #js_content and keep their short description in #js_image_desc.
+  const WECHAT_EXCERPT_CHARS = 280;
+
+  function wechatScriptValue(pattern) {
+    for (const script of document.scripts) {
+      const match = pattern.exec(script.textContent || "");
+      if (match) return match[1];
+    }
+    return "";
+  }
+
+  function httpsUrl(url) {
+    const value = String(url || "").trim().replace(/&amp;/g, "&");
+    if (!value) return "";
+    if (value.startsWith("//")) return `https:${value}`;
+    return value.replace(/^http:\/\//i, "https://");
+  }
+
+  function metaContent(selector) {
+    const node = document.querySelector(selector);
+    return node ? String(node.getAttribute("content") || "").trim() : "";
+  }
+
+  // Paragraph-aware excerpt: whole paragraphs until the budget is used, then a
+  // clean cut on the last sentence break inside the paragraph that overflows.
+  function excerpt(text, budget) {
+    const paragraphs = String(text || "")
+      .split(/\n+/)
+      .map((line) => line.replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+    const kept = [];
+    let used = 0;
+    for (const paragraph of paragraphs) {
+      const chars = [...paragraph];
+      if (used + chars.length <= budget) {
+        kept.push(paragraph);
+        used += chars.length;
+        continue;
+      }
+      const room = budget - used;
+      if (room > 40 || !kept.length) {
+        const head = chars.slice(0, Math.max(room, 40)).join("");
+        const cut = Math.max(...["。", "！", "？", ".", "!", "?", "；", ";"].map((mark) => head.lastIndexOf(mark)));
+        kept.push(cut > head.length * 0.5 ? head.slice(0, cut + 1) : `${head.trimEnd()}…`);
+      } else {
+        kept[kept.length - 1] = `${kept[kept.length - 1]}…`;
+      }
+      break;
+    }
+    return kept.join("\n\n");
+  }
+
+  function wechatDate() {
+    const timestamp = wechatScriptValue(/\bvar\s+ct\s*=\s*["'](\d{10})["']/) ||
+      wechatScriptValue(/\bcreate_time\s*[:=]\s*["']?(\d{10})/);
+    if (timestamp) return formatDate(new Date(Number(timestamp) * 1000));
+    const label = readText(document.querySelector("#publish_time")) || metaContent('meta[property="article:published_time"]');
+    const match = /(\d{4})\s*[年/.-]\s*(\d{1,2})\s*[月/.-]\s*(\d{1,2})/.exec(label);
+    return match ? `${match[1]}-${match[2].padStart(2, "0")}-${match[3].padStart(2, "0")}` : "";
+  }
+
+  // Share links carry tracking (chksm, scene, sessionid...). Keep only what
+  // identifies the article, so the QR code stays small and the link stays valid.
+  function wechatArticleUrl() {
+    const raw = metaContent('meta[property="og:url"]') || location.href;
+    try {
+      const url = new URL(httpsUrl(raw), location.href);
+      url.hash = "";
+      if (/^\/s\/[\w-]+/.test(url.pathname)) {
+        url.search = "";
+      } else {
+        const keep = new URLSearchParams();
+        for (const key of ["__biz", "mid", "idx", "sn"]) {
+          const value = url.searchParams.get(key);
+          if (value) keep.set(key, value);
+        }
+        url.search = keep.toString();
+      }
+      return url.toString();
+    } catch (_) {
+      return location.href;
+    }
+  }
+
+  const wechat = {
+    id: "wechat",
+    match: (host) => host === "mp.weixin.qq.com",
+    urlPatterns: ["https://mp.weixin.qq.com/*"],
+    findPost(path) {
+      const selector = "#img-content, #js_article, .rich_media, .share_content_page";
+      return closestFromPath(path, selector) || document.querySelector(selector);
+    },
+    extract(post) {
+      const scope = post || document;
+      const body = scope.querySelector("#js_content") || scope.querySelector("#js_image_desc, .share_notice");
+      // #js_content is visibility:hidden until the page finishes loading, and
+      // innerText skips hidden text, so fall back to the raw text.
+      const bodyText = readText(body) || String((body && body.textContent) || "");
+      const title =
+        readText(scope.querySelector("#activity-name, .rich_media_title")) ||
+        metaContent('meta[property="og:title"]') ||
+        document.title;
+      const account =
+        readText(scope.querySelector("#js_name, .wx_follow_nickname, .account_nickname_inner")) ||
+        wechatScriptValue(/\bvar\s+nickname\s*=\s*(?:htmlDecode\()?["']([^"']+)["']/);
+      const writer =
+        readText(scope.querySelector("#js_author_name, .rich_media_meta_text.rich_media_meta_nickname + .rich_media_meta_text")) ||
+        metaContent('meta[name="author"]');
+      const avatar =
+        imageSrc(scope.querySelector(".wx_follow_avatar img, #js_profile_qrcode .profile_avatar img, .account_avatar img")) ||
+        wechatScriptValue(/\bround_head_img\s*=\s*["']([^"']+)["']/) ||
+        wechatScriptValue(/\bhd_head_img\s*=\s*["']([^"']+)["']/);
+      const cover =
+        wechatScriptValue(/\bmsg_cdn_url\s*=\s*["']([^"']+)["']/) ||
+        wechatScriptValue(/\bcdn_url_235_1\s*=\s*["']([^"']+)["']/) ||
+        metaContent('meta[property="og:image"]');
+      const inline = [...((body && body.querySelectorAll("img")) || [])]
+        .map((img) => img.getAttribute("data-src") || imageSrc(img))
+        .filter((src) => /qpic\.cn|qlogo\.cn/.test(src));
+      // Image posts are a gallery; articles show only their cover.
+      const isImagePost = !scope.querySelector("#js_content") && inline.length > 0;
+      const media = uniqueMedia((isImagePost ? inline : [cover || inline[0]]).map(httpsUrl));
+
+      return {
+        authorName: account || "微信公众号",
+        authorHandle: writer && writer !== account ? `作者 ${writer}` : "",
+        avatarUrl: httpsUrl(avatar),
+        title: title.trim(),
+        text: excerpt(bodyText, WECHAT_EXCERPT_CHARS),
+        media,
+        stats: [],
+        createdAtLabel: wechatDate(),
+        sourceLabel: "mp.weixin.qq.com",
+        sourceUrl: wechatArticleUrl()
+      };
+    }
+  };
+
+  root.PaperCardPlatforms = [bluesky, threads, instagram, weibo, zhihu, xiaohongshu, wechat];
+  // Exposed for tests.
+  root.PaperCardPlatformHelpers = { excerpt, httpsUrl };
 })(typeof globalThis !== "undefined" ? globalThis : this);

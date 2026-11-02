@@ -17,7 +17,8 @@ const POST_SITE_PATTERNS = [
   "https://www.weibo.com/*",
   "https://www.zhihu.com/*",
   "https://zhuanlan.zhihu.com/*",
-  "https://www.xiaohongshu.com/*"
+  "https://www.xiaohongshu.com/*",
+  "https://mp.weixin.qq.com/*"
 ];
 const FETCH_IMAGE_MESSAGE = "tsi:fetch-image";
 const INJECTED_FILES = ["src/core.js", "src/qrcode.js", "src/renderer.js", "src/platforms.js", "src/content.js"];
@@ -33,7 +34,11 @@ const FETCHABLE_IMAGE_HOSTS = [
   /(^|\.)fbcdn\.net$/,
   /(^|\.)sinaimg\.cn$/,
   /(^|\.)zhimg\.com$/,
-  /(^|\.)xhscdn\.com$/
+  /(^|\.)xhscdn\.com$/,
+  // WeChat article images and account avatars. The CDN refuses foreign
+  // Referers but serves requests that send none, which is what we do.
+  /(^|\.)qpic\.cn$/,
+  /(^|\.)qlogo\.cn$/
 ];
 
 const SELECTION_COMMAND = "create-selection-card";

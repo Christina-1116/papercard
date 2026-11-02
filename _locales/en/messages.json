@@ -188,6 +188,18 @@
   "template_gradient": {
     "message": "Gradient"
   },
+  "template_blossom": {
+    "message": "Blossom"
+  },
+  "template_cloud": {
+    "message": "Cloud"
+  },
+  "template_memo": {
+    "message": "Memo"
+  },
+  "template_matcha": {
+    "message": "Matcha"
+  },
   "brandLine": {
     "message": "Made with PaperCard"
   },

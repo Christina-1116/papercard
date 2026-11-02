@@ -188,6 +188,18 @@
   "template_gradient": {
     "message": "渐变"
   },
+  "template_blossom": {
+    "message": "樱粉"
+  },
+  "template_cloud": {
+    "message": "云朵"
+  },
+  "template_memo": {
+    "message": "便签"
+  },
+  "template_matcha": {
+    "message": "抹茶"
+  },
   "brandLine": {
     "message": "由 PaperCard 生成"
   },
